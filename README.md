@@ -33,6 +33,10 @@
 |--|--|
 | Auth_Bypass | 通达OA 登录绕过 |
 
+###  Python-Binary
+
+>python脚本编译的二进制文件
+
 ###  Other
 
 >杂项，包括编解码，文件监控，加载器等其他工具
