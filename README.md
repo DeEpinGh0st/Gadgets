@@ -33,6 +33,12 @@
 |--|--|
 | Auth_Bypass | 通达OA 登录绕过 |
 
+###  UEditor
+
+|  |  |
+|--|--|
+| UEditor-Donet-getshell | .Net版UEditor远程抓取Getshell |
+
 ###  Other
 
 >杂项，包括编解码，文件监控，加载器等其他工具
