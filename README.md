@@ -39,6 +39,13 @@
 |--|--|
 | UEditor-Donet-getshell | .Net版UEditor远程抓取Getshell |
 
+###  UAC
+
+|  |  |
+|--|--|
+| ProgIDsUACBypass.exe | 利用ProgIDs绕过UAC (C#)|
+| ProgIDsUACBypass.ps1 | 利用ProgIDs绕过UAC (powershell)|
+
 ###  Other
 
 >杂项，包括编解码，文件监控，加载器等其他工具
